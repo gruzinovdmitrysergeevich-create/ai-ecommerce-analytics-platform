@@ -10,8 +10,8 @@ ANALYTICS_DIR = os.path.expanduser("~/my-ai-stack/analytics")
 sys.path.insert(0, ANALYTICS_DIR)
 
 BASEROW_URL = "http://localhost:8000"
-JWT_EMAIL = "gruzinov.dmitry.sergeevich@gmail.com"
-JWT_PASS = "1I9N59!_09&"
+JWT_EMAIL = os.getenv("BASEROW_EMAIL", "")
+JWT_PASS = os.getenv("BASEROW_PASSWORD", "")
 _jwt_cache = {"token": None, "expires_at": 0}
 
 MAX_ATTEMPTS = 3

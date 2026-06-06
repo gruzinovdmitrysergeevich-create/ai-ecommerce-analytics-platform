@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 fin_analyst.py - Полная версия с очисткой числовых колонок и преобразованием даты.
@@ -19,7 +20,7 @@ MODEL_NAME = "deepseek-fin:latest"
 MODEL_URL = "http://100.64.243.115:11434/api/generate"
 MAX_ATTEMPTS = 3
 
-BASEROW_TOKEN = "5iIBoYZ579mQMRYnJpx12nFKESISiB9w"
+BASEROW_TOKEN = os.getenv("BASEROW_TOKEN", "")
 BASEROW_URL = "http://localhost:8000"
 TABLE_ID = 773
 

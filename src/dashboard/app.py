@@ -42,7 +42,7 @@ from arch_block import ARCH_BLOCK
 # УТИЛИТЫ
 # ═══════════════════════════════════════════════════
 BASEROW_URL = "http://localhost:8000"
-BASEROW_TOKEN = "5iIBoYZ579mQMRYnJpx12nFKESISiB9w"
+BASEROW_TOKEN = os.getenv("BASEROW_TOKEN", "")
 METABASE_URL = "http://localhost:3001"
 QDRANT_URL = "http://localhost:6333/dashboard"
 WB_PRODUCT_URL = "https://www.wildberries.ru/catalog/239789919/detail.aspx?targetUrl=GP"

@@ -10,7 +10,7 @@ import signal
 
 STATION_IP = "100.64.243.115"
 STATION_USER = "werna"
-STATION_PASS = "1981vbars"
+STATION_PASS = os.getenv("STATION_PASS", "")
 LOCAL_MODELS_PATH = "/home/werna81/Ollama_System/models"
 VLLM_DIR = os.path.expanduser("~/my-ai-stack")
 VLLM_PID_FILE = os.path.join(VLLM_DIR, "vllm_reranker.pid")

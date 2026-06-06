@@ -5,8 +5,8 @@ import urllib.request, json, time, os
 print("[DEBUG] finance_provider.py LOADED v2026-05-31")
 
 BASEROW_URL = "http://localhost:8000"
-JWT_EMAIL = "gruzinov.dmitry.sergeevich@gmail.com"
-JWT_PASS = "1I9N59!_09&"
+JWT_EMAIL = os.getenv("BASEROW_EMAIL", "")
+JWT_PASS = os.getenv("BASEROW_PASSWORD", "")
 CACHE_FILE = "/tmp/finance_cache.json"
 
 _DEBUG_LOG = "/tmp/finance_debug.log"

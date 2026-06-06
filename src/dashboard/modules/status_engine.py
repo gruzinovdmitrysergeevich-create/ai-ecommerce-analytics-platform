@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -11,7 +12,7 @@ import json
 import requests
 from typing import Dict, List, Any
 
-BASEROW_TOKEN = "5iIBoYZ579mQMRYnJpx12nFKESISiB9w"
+BASEROW_TOKEN = os.getenv("BASEROW_TOKEN", "")
 STATION_IP = "100.64.243.115"
 VLLM_PORT = 8001
 
