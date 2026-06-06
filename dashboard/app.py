@@ -33,7 +33,11 @@ from modules.finance_provider import get_finance_summary
 from modules.docker_manager import docker_action
 from modules.ollama_manager import ollama_action, vllm_action
 from modules.loader_runner import list_loaders, run_loader, get_loader_logs, get_loader_status
-from modules.analytics_sandbox import run_analytics_question, get_quick_metrics
+import sys as _sys
+_analytics_path = os.path.expanduser("~/my-ai-stack/analytics")
+if _analytics_path not in _sys.path:
+    _sys.path.insert(0, _analytics_path)
+from analyst import run_question as run_analytics_question
 from modules.debug_agent import debug_script_with_model as debug_script
 # get_overview_status imported above (line 18-22)
 from arch_block import ARCH_BLOCK
@@ -42,7 +46,7 @@ from arch_block import ARCH_BLOCK
 # УТИЛИТЫ
 # ═══════════════════════════════════════════════════
 BASEROW_URL = "http://localhost:8000"
-BASEROW_TOKEN = os.getenv("BASEROW_TOKEN", "")
+BASEROW_TOKEN = "your_baserow_token"
 METABASE_URL = "http://localhost:3001"
 QDRANT_URL = "http://localhost:6333/dashboard"
 WB_PRODUCT_URL = "https://www.wildberries.ru/catalog/239789919/detail.aspx?targetUrl=GP"
@@ -1066,7 +1070,7 @@ elif page == "Аналитика":
         </div>
         """, unsafe_allow_html=True)
         try:
-            result = run_analytics_question(question, model=agent.split(" (")[0])
+            result = run_analytics_question(question)
             write_log("Аналитика", f"[{agent}] {question[:60]}...")
             st.session_state.analytics_result = result
             st.session_state.analytics_last_agent = agent

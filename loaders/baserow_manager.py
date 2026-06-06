@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 
 BASEROW_URL = os.getenv("BASEROW_URL", "http://localhost:8000")
-DB_TOKEN = os.getenv("BASEROW_DB_TOKEN", os.getenv("BASEROW_TOKEN", ""))
-ADMIN_USERNAME = os.getenv("BASEROW_ADMIN_USER", os.getenv("BASEROW_EMAIL", ""))
-ADMIN_PASS = os.getenv("BASEROW_ADMIN_PASS", os.getenv("BASEROW_PASSWORD", ""))
+DB_TOKEN = os.getenv("BASEROW_DB_TOKEN", "your_baserow_token")
+ADMIN_USERNAME = os.getenv("BASEROW_ADMIN_USER", "your@email.com")
+ADMIN_PASS = os.getenv("BASEROW_ADMIN_PASS", "your_password")
 DATABASE_ID = int(os.getenv("BASEROW_DATABASE_ID", "212"))
 
 class BaserowManager:
@@ -198,12 +198,4 @@ class BaserowManager:
             field_url = f"{BASEROW_URL}/api/database/fields/table/{table_id}/"
             field_payload = {
                 "name": field["name"],
-                "type": field.get("type", "text")
-            }
-            try:
-                resp = requests.post(field_url, headers=headers, json=field_payload, timeout=10)
-                resp.raise_for_status()
-            except Exception as e:
-                print(f"Не удалось создать поле {field['name']}: {e}")
-        
-        return table_id
+                "

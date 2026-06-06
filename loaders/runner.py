@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/werna81/my-ai-stack/analytics/venv/bin/python
 import sys
 import io
 import traceback

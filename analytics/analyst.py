@@ -184,6 +184,25 @@ def _fallback_classification(cps: dict) -> dict:
 
 # ════ ГЛАВНЫЙ ЦИКЛ ════
 
+def run_question(question: str) -> dict:
+    """Вызов из кода (Streamlit, API). Возвращает {output, error, status}."""
+    import io, sys as _sys
+    old_stdout = _sys.stdout
+    _sys.stdout = io.StringIO()
+    try:
+        # Эмулируем CLI-вызов: подменяем argv и вызываем main
+        old_argv = _sys.argv
+        _sys.argv = ["analyst.py", question]
+        main()
+        output = _sys.stdout.getvalue()
+        return {"output": output, "status": "ok"}
+    except Exception as e:
+        return {"error": str(e), "status": "error"}
+    finally:
+        _sys.stdout = old_stdout
+        _sys.argv = old_argv
+
+
 def main():
     question = " ".join(a for a in sys.argv[1:] if not a.startswith("--"))
     if not question:
