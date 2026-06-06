@@ -1,0 +1,31 @@
+{
+  "api_base_url": "https://api-seller.ozon.ru",
+  "api_key_env": "OZON_CREDS",
+  "report_name": "turnover_stocks",
+  "api_endpoint": "/v1/analytics/turnover/stocks",
+  "method": "POST",
+  "pagination_type": "offset",
+  "field_mapping": {
+    "sku": "integer",
+    "name": "text",
+    "offer_id": "text",
+    "ads": "number",
+    "current_stock": "integer",
+    "idc": "number",
+    "idc_grade": "text",
+    "turnover": "number",
+    "turnover_grade": "text"
+  },
+  "unique_key": "sku",
+  "max_depth_days": 90,
+  "batch_size": 1000,
+  "is_async": false,
+  "rate_limit_per_sec": 5,
+  "response_data_path": "items",
+  "date_params": {},
+  "pagination_config": {
+    "offset_param": "offset",
+    "limit_param": "limit"
+  },
+  "request_body_template": "{}"
+}

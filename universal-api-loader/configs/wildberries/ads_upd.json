@@ -1,0 +1,29 @@
+{
+  "api_base_url": "https://advert-api.wildberries.ru",
+  "api_key_env": "WB_TOKEN",
+  "report_name": "ads_upd",
+  "api_endpoint": "/adv/v1/upd",
+  "method": "GET",
+  "pagination_type": "none",
+  "field_mapping": {
+    "advertId": "integer",
+    "updTime": "text",
+    "updNum": "integer",
+    "updSum": "number",
+    "campName": "text",
+    "advertType": "integer",
+    "paymentType": "text",
+    "advertStatus": "integer"
+  },
+  "unique_key_fields": ["advertId", "updTime"],
+  "max_depth_days": 90,
+  "split_by_month": true,
+  "batch_size": 1,
+  "is_async": false,
+  "rate_limit_per_sec": 1,
+  "response_data_path": "",
+  "date_from_param": "from",
+  "date_to_param": "to",
+  "pagination_config": {},
+  "request_body_template": ""
+}

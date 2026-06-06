@@ -1,0 +1,32 @@
+{
+  "api_base_url": "https://api-seller.ozon.ru",
+  "api_key_env": "OZON_CREDS",
+  "report_name": "stock_on_warehouses",
+  "api_endpoint": "/v2/analytics/stock_on_warehouses",
+  "method": "POST",
+  "pagination_type": "offset",
+  "field_mapping": {
+    "sku": "integer",
+    "item_code": "text",
+    "item_name": "text",
+    "offer_id": "text",
+    "warehouse_name": "text",
+    "free_to_sell_amount": "integer",
+    "promised_amount": "integer",
+    "reserved_amount": "integer"
+  },
+  "unique_key": "",
+  "unique_key_fields": ["sku", "warehouse_name"],
+  "max_depth_days": 1,
+  "batch_size": 1000,
+  "is_async": false,
+  "rate_limit_per_sec": 10,
+  "response_data_path": "result.rows",
+  "date_params": {},
+  "pagination_config": {
+    "offset_param": "offset",
+    "limit_param": "limit"
+  },
+  "request_body_template": "{\"limit\":1000,\"offset\":0}",
+  "deprecated_note": "v2 deprecated. Migration to /v1/analytics/stocks blocked: requires skus[] param (no bulk fetch). Keep v2 until Ozon removes it."
+}

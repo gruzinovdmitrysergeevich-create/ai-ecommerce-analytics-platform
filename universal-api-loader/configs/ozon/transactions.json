@@ -1,0 +1,36 @@
+{
+  "api_base_url": "https://api-seller.ozon.ru",
+  "api_key_env": "OZON_CREDS",
+  "report_name": "transactions",
+  "api_endpoint": "/v3/finance/transaction/list",
+  "method": "POST",
+  "pagination_type": "page_number",
+  "field_mapping": {
+    "operation_id": "text",
+    "operation_type": "text",
+    "operation_type_name": "text",
+    "operation_date": "text",
+    "amount": "number",
+    "type": "text",
+    "accruals_for_sale": "number",
+    "sale_commission": "number",
+    "delivery_charge": "number",
+    "return_delivery_charge": "number",
+    "posting.posting_number": "text",
+    "posting.order_date": "text",
+    "posting.delivery_schema": "text",
+    "posting.warehouse_id": "integer"
+  },
+  "unique_key": "operation_id",
+  "max_depth_days": 1095,
+  "split_by_month": true,
+  "batch_size": 1000,
+  "is_async": false,
+  "rate_limit_per_sec": 10,
+  "response_data_path": "result.operations",
+  "pagination_config": {
+    "page_param": "page",
+    "page_size_param": "page_size"
+  },
+  "request_body_template": "{\"filter\":{\"date\":{\"from\":\"{from_date}T00:00:00Z\",\"to\":\"{to_date}T23:59:59Z\"}}}"
+}
