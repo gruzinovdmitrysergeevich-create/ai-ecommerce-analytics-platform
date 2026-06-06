@@ -19,7 +19,7 @@ import requests
 from dotenv import load_dotenv
 
 # ========== 1. НАСТРОЙКА ==========
-ENV_PATH = Path("/home/werna81/my-ai-stack/analytics/.env")
+ENV_PATH = Path("~/my-ai-stack/analytics/.env")
 load_dotenv(ENV_PATH)
 
 BASEROW_URL = os.getenv("BASEROW_URL", "http://localhost:8000")

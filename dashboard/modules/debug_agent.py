@@ -137,9 +137,9 @@ def debug_script_with_model(code: str = "", problem: str = "", model: str = "Her
         "---ANALYSIS---\n"
         "(анализ: что сломано, как исправлено)\n"
         "---CODE---\n"
-        "# file: /home/werna81/my-ai-stack/path/to/file.py\n"
+        "# file: ~/my-ai-stack/path/to/file.py\n"
         "(полный исправленный код файла)\n"
-        "# file: /home/werna81/my-ai-stack/path/to/another.py\n"
+        "# file: ~/my-ai-stack/path/to/another.py\n"
         "(полный исправленный код другого файла)\n"
     )
     

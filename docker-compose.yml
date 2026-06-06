@@ -29,8 +29,8 @@ services:
   #     - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
   #     - BASEROW_URL=http://baserow:80
   #     - BASEROW_HOST_HEADER=localhost
-  #     - BASEROW_EMAIL=gruzinov.dmitry.sergeevich@gmail.com
-  #     - BASEROW_PASSWORD=1I9N59!_09&
+  #     - BASEROW_EMAIL=your@email.com
+  #     - BASEROW_PASSWORD=your_password
   #   volumes:
   #     - ./n8n_data:/home/node/.n8n
   #   depends_on:
@@ -147,8 +147,8 @@ services:
   #     - N8N_RUNNERS_CONFIG_FILE=/etc/n8n-task-runners.json
   #     - BASEROW_URL=http://baserow:80
   #     - BASEROW_HOST_HEADER=localhost
-  #     - BASEROW_EMAIL=gruzinov.dmitry.sergeevich@gmail.com
-  #     - BASEROW_PASSWORD=1I9N59!_09&
+  #     - BASEROW_EMAIL=your@email.com
+  #     - BASEROW_PASSWORD=your_password
   #   volumes:
   #     - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro
   #     - /mnt/3E7ADD3C7ADCF19F/ai-projects/universal-api-loader/logs:/home/runner/logs
