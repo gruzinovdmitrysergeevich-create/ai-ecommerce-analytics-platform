@@ -99,13 +99,13 @@ WB API / Ozon API                Google Sheets / Excel
 
 ## Скриншоты
 
-![Обзор системы](docs/screenshots/overview.png)
+![Аналитика](docs/screenshots/analytics2.png)
 
 ![Архитектура](docs/screenshots/architecture.png)
 
 ![Аналитика](docs/screenshots/analytics1.png)
 
-![Аналитика](docs/screenshots/analytics2.png)
+![Обзор системы](docs/screenshots/overview.png)
 
 ---
 
