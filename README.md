@@ -1,4 +1,4 @@
-# 🧠 AI-Powered E-commerce Analytics Platform
+# AI-Powered E-commerce Analytics Platform
 
 **Система сквозной аналитики для маркетплейсов Wildberries и Ozon с AI-ассистентом.**
 
