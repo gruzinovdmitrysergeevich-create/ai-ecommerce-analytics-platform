@@ -1,0 +1,11 @@
+{
+  "source_type": "google_drive",
+  "path": "GEHLEN ДОКУМЕНТЫ/БУХГАЛТЕРИЯ/УПРАВЛЕНЧЕСКАЯ ОТЧЕТНОСТЬ/bank_statements/",
+  "database": "Дмитрий Финансов",
+  "table_name": "Выписка по счёту",
+  "hash_fields": ["Дата", "Приход", "Расход", "Контрагент", "Номер документа"],
+  "defaults": {},
+  "delete_after_upload": false,
+  "incremental": false,
+  "sheet_name": null
+}

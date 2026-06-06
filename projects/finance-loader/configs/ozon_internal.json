@@ -1,0 +1,13 @@
+{
+  "source_type": "local",
+  "path": "/mnt/3E7ADD3C7ADCF19F/ai-projects/advertising-data/ozon_internal/",
+  "database": "Реклама",
+  "table_name": "internal_advertising",
+  "hash_fields": ["Дата", "SKU / ID товара"],
+  "defaults": {
+    "Маркетплейс": "Ozon"
+  },
+  "delete_after_upload": false,
+  "incremental": false,
+  "file_filter": "*.xlsx"
+}

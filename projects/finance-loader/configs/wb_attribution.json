@@ -1,0 +1,13 @@
+{
+  "source_type": "local",
+  "path": "/mnt/3E7ADD3C7ADCF19F/ai-projects/advertising-data/wb_attribution/",
+  "database": "Реклама",
+  "table_name": "external_attribution",
+  "hash_fields": ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"],
+  "defaults": {
+    "Маркетплейс": "WB"
+  },
+  "delete_after_upload": false,
+  "incremental": false,
+  "file_filter": "*.xlsx"
+}

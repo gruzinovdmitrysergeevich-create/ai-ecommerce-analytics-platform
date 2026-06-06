@@ -1,0 +1,50 @@
+# ========== Техническое (модель НЕ знает) ==========
+baserow:
+  url: http://localhost:8000
+  email: gruzinov.dmitry.sergeevich@gmail.com
+  password: 1I9N59!_09&
+
+models:
+  # Код генерит облачная (DeepSeek v4 Pro) — лучший кодогенератор
+  code:
+    provider: deepseek
+    api_key: sk-66b1245d8de7400d96823dec184d255f
+    api_base: https://api.deepseek.com/v1
+    model: deepseek-chat
+    temperature: 0.1
+    max_tokens: 3000
+
+  # Интерпретирует локальная (deepseek-fin) — финансовый анализ
+  interpret:
+    provider: ollama
+    url: http://100.64.243.115:11434
+    model: deepseek-fin:latest
+    temperature: 0.3
+    max_tokens: 2000
+    keep_alive: 3600
+
+  # Fallback: если локальная не ответила — облако
+  fallback:
+    provider: deepseek
+    api_key: sk-66b1245d8de7400d96823dec184d255f
+    api_base: https://api.deepseek.com/v1
+    model: deepseek-chat
+
+# ========== Бизнес-контекст (модель НЕ знает) ==========
+business:
+  name: "СТМ LANER"
+  marketplaces: [wildberries, ozon]
+
+# ========== Анализ ==========
+analysis:
+  default_period: "2025"
+  anomaly_threshold:
+    drr_warning: 0.30    # ДРР > 30% — тревога
+    drr_critical: 0.50   # ДРР > 50% — критично
+    margin_min: 0.10     # Маржа < 10% — тревога
+
+# ========== Валидация данных ==========
+validation:
+  min_rows_per_table: 10
+  max_gap_days: 90       # Допустимый разрыв в данных (дней)
+  required_coverage_pct: 0.6  # Минимальный % покрытия периода

@@ -1,0 +1,49 @@
+{
+  "aggregations": [
+    {
+      "name": "wb_aggregated",
+      "workspace": "wildberries",
+      "source_table": "realization_detail",
+      "group_by": "rrDate",
+      "metrics": [
+        {"name": "date", "source_field": "rrDate", "agg": "first", "type": "date", "baserow_type": "date"},
+        {"name": "total_logistics", "source_field": "deliveryService", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_penalties", "source_field": "penalty", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_storage", "source_field": "paidStorage", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_acceptance", "source_field": "paidAcceptance", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_commission", "source_field": "ppvzSalesCommission", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_retail_amount", "source_field": "retailAmount", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_quantity", "source_field": "quantity", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 0},
+        {"name": "total_forPay", "source_field": "forPay", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "unique_orders", "source_field": "orderId", "agg": "count_unique", "type": "number", "baserow_type": "number", "precision": 0}
+      ]
+    },
+    {
+      "name": "ozon_aggregated",
+      "workspace": "ozon",
+      "source_table": "transactions",
+      "group_by": "operation_date",
+      "metrics": [
+        {"name": "date", "source_field": "operation_date", "agg": "first", "type": "date", "baserow_type": "date"},
+        {"name": "total_amount", "source_field": "amount", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_sales", "source_field": "accruals_for_sale", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_commission", "source_field": "sale_commission", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_delivery", "source_field": "delivery_charge", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_return_delivery", "source_field": "return_delivery_charge", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "order_count", "source_field": "posting_posting_number", "agg": "count_unique", "type": "number", "baserow_type": "number", "precision": 0}
+      ]
+    },
+    {
+      "name": "finance_aggregated",
+      "workspace": "Дмитрий Финансов",
+      "source_table": "Выписка по счёту",
+      "group_by": "Дата",
+      "metrics": [
+        {"name": "date", "source_field": "Дата", "agg": "first", "type": "date", "baserow_type": "date"},
+        {"name": "total_debit", "source_field": "Дебет,_RUR", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "total_credit", "source_field": "Кредит,_RUR", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2},
+        {"name": "daily_balance", "source_field": "daily_balance", "agg": "sum", "type": "number", "baserow_type": "number", "precision": 2, "formula": "total_credit - total_debit"}
+      ]
+    }
+  ]
+}

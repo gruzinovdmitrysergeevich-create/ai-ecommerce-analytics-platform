@@ -1,0 +1,13 @@
+{
+  "source_type": "google_drive",
+  "path": "GEHLEN ДОКУМЕНТЫ/БУХГАЛТЕРИЯ/УПРАВЛЕНЧЕСКАЯ ОТЧЕТНОСТЬ/",
+  "database": "Дмитрий Финансов",
+  "table_name": "Управленка",
+  "hash_fields": ["Дата", "Контрагент", "Наименование операции"],
+  "defaults": {},
+  "delete_after_upload": false,
+  "incremental": true,
+  "file_filter": "УПРАВЛЕНКА 25/24-23",
+  "sheet_name": null,
+  "skip_sheets": ["Платежный календарь", "ROI", "Архив"]
+}
