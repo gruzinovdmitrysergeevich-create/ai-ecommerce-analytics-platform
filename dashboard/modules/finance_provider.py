@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """finance_provider.py — быстрая загрузка с дисковым кешем."""
 import urllib.request, json, time, os

@@ -4,82 +4,113 @@
 
 ---
 
-## О проекте
+## Как это работает
 
-Аналитическая платформа для управления бизнесом на маркетплейсах. Объединяет данные из API Wildberries и Ozon в единое хранилище, автоматизирует расчёт юнит-экономики и предоставляет real-time дашборд с AI-аналитикой на русском языке.
-
-**Стек**: Python, Streamlit, Docker, PostgreSQL, Baserow, Metabase, Qdrant, DeepSeek API, Ollama, Tailscale.
+```
+┌─────────────────────────────────────────────────────┐
+│                  Источники данных                    │
+│         Wildberries API  │  Ozon API                │
+└──────────────────────┬──────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│              Универсальные загрузчики                │
+│   wb_sales_loader │ wb_realization_loader │ ...     │
+│   ozon_finance_v2_loader │ ozon_postings_loader     │
+│         ↓ сандализация на 2023 год ↓                │
+└──────────────────────┬──────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│                Оркестратор + Baserow                 │
+│     wb_orchestrator.py → baserow_manager.py          │
+│              ↓ PostgreSQL (реляционные данные) ↓     │
+└──────────────────────┬──────────────────────────────┘
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+┌──────────────┐ ┌──────────┐ ┌──────────┐
+│   Metabase   │ │ Аналитика│ │  Дебаг   │
+│ (визуализация)│ │  (AI)    │ │  (AI)    │
+│   :3001      │ │DeepSeek  │ │DeepSeek  │
+└──────────────┘ │  API     │ │  API     │
+                 └──────────┘ └──────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│              UI Dashboard (Streamlit :8501)          │
+│    Обзор системы │ Аналитика │ Архитектура │ Дебаг   │
+└─────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Ключевые компоненты
+## Структура проекта
 
-| Компонент | Описание |
+```
+├── loaders/                       # Загрузчики данных из API маркетплейсов
+│   ├── wb_sales_loader.py         # WB — продажи
+│   ├── wb_realization_loader.py   # WB — реализация
+│   ├── wb_ads_loader.py           # WB — реклама
+│   ├── ozon_finance_v2_loader.py  # Ozon — финансы
+│   ├── ozon_postings_loader.py    # Ozon — отправления
+│   ├── ozon_realization_loader.py # Ozon — реализация
+│   ├── ozon_transactions_detail_loader.py  # Ozon — транзакции
+│   ├── ozon_vendor_loader.py      # Ozon — поставщик
+│   └── ozon_ads_loader.py         # Ozon — реклама
+│
+├── analytics/                     # Ядро аналитики
+│   ├── wb_base_loader.py          # Базовый класс загрузчиков WB
+│   ├── wb_orchestrator.py         # Оркестратор пайплайна
+│   ├── runner.py                  # Главный запускатор
+│   ├── baserow_manager.py         # Клиент Baserow API
+│   └── fin_analyst.py             # Финансовый аналитик
+│
+├── dashboard/                     # Streamlit UI дашборд
+│   ├── app.py                     # Главное приложение
+│   ├── arch_block.py              # Страница «Архитектура»
+│   ├── export_baserow_to_postgres.py  # ETL-мост Baserow → PostgreSQL
+│   └── modules/
+│       ├── analytics_sandbox.py   # AI-аналитика (DeepSeek API + Plotly)
+│       ├── debug_agent.py         # AI-дебаг (анализ и исправление кода)
+│       ├── docker_manager.py      # Управление Docker-контейнерами
+│       ├── finance_provider.py    # Финансовая сводка (из Baserow)
+│       ├── loader_runner.py       # Запуск и мониторинг загрузчиков
+│       ├── ollama_manager.py      # Управление Ollama (стационар)
+│       └── status_engine.py       # Проверка статусов всех сервисов
+│
+├── docker-compose.yml             # Docker-инфраструктура
+├── docs/screenshots/              # Скриншоты интерфейса
+├── .env.example                   # Шаблон переменных окружения
+└── README.md
+```
+
+---
+
+## Ключевые модули
+
+| Модуль | Назначение |
 |---|---|
-| **ETL-загрузчики** | 12 загрузчиков данных из API WB и Ozon (продажи, финансы, реклама, реализация) |
-| **Хранилище** | PostgreSQL (Baserow) — структурированные данные + Qdrant — векторная БД для неструктурированной аналитики |
-| **UI Dashboard** | Streamlit-дашборд: статус сервисов, финансовая сводка, управление загрузчиками |
-| **AI-аналитика** | Запрос на русском → генерация pandas-кода → интерактивный Plotly-график |
-| **AI-дебаг** | Анализ кодовой базы, поиск багов и устаревших endpoints, генерация исправлений |
+| **loaders/** | 9 загрузчиков — сбор сырых данных из API WB и Ozon |
+| **analytics/wb_orchestrator.py** | Координация загрузки, агрегации и записи в Baserow |
+| **dashboard/modules/loader_runner.py** | Управление загрузчиками из UI (вкл/выкл/перезапуск) |
+| **dashboard/modules/analytics_sandbox.py** | AI-генерация pandas-кода по запросу на русском → Plotly-график |
+| **dashboard/modules/finance_provider.py** | Авто-обнаружение таблиц Baserow, расчёт прибыли/ДРР/продаж |
+| **dashboard/modules/debug_agent.py** | Сканирование проекта, поиск багов и устаревших endpoints |
 
 ---
 
-## Архитектура
+## Стек
 
-```
-┌──────────────────────────────────────────┐
-│            UI Dashboard (:8501)           │
-│        Streamlit + DeepSeek API           │
-│   Обзор системы │ Аналитика │ Дебаг      │
-└──────┬──────────┴─────┬─────┴──────┬─────┘
-       │                │            │
-       ▼                ▼            ▼
-┌──────────┐   ┌────────────┐  ┌──────────┐
-│ Metabase │   │ DeepSeek   │  │  Qdrant  │
-│  :3001   │   │   API      │  │  :6333   │
-│  (BI)    │   │ (AI-агент) │  │ (вектор) │
-└────┬─────┘   └────────────┘  └──────────┘
-     │
-     ▼
-┌──────────┐
-│ Baserow  │── PostgreSQL (реляционные данные)
-│  :8000   │
-└────┬─────┘
-     │
-┌────┴──────────────────┐
-│   WB API  │  Ozon API │
-└───────────┴───────────┘
-```
+`Python` `Streamlit` `Docker` `PostgreSQL` `Baserow` `Metabase` `Qdrant` `DeepSeek API` `Ollama` `Tailscale`
 
 ---
 
 ## Скриншоты
 
-### Обзор системы
-![Обзор](docs/screenshots/overview.png)
-
-### AI-аналитика
-![Аналитика](docs/screenshots/analytics.png)
-
-### Дебаг-агент
-![Дебаг](docs/screenshots/debug.png)
-
----
-
-## Структура
-
-```
-├── src/
-│   ├── dashboard/              # Streamlit UI
-│   │   ├── app.py              # Главный дашборд
-│   │   └── modules/            # Аналитика, дебаг, статусы, финансы
-│   ├── etl/                    # ETL-загрузчики (WB + Ozon, 12 шт)
-│   └── analytics/              # AI-движок
-├── docker-compose.yml          # Docker-инфраструктура
-├── docs/screenshots/           # Скриншоты
-├── .env.example                # Шаблон переменных
-└── README.md
-```
+![Обзор системы](docs/screenshots/overview.png)
+![AI-аналитика](docs/screenshots/analytics.png)
+![Дебаг-агент](docs/screenshots/debug.png)
 
 ---
 
