@@ -11,7 +11,7 @@
 
 ## Запуск
 ```bash
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/aggregator
+cd ./aggregator
 python3 src/aggregator.py
 ```
 
@@ -36,7 +36,7 @@ aggregator/
 
 ## Как перезапустить агрегацию для исторических данных
 ```bash
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/aggregator
+cd ./aggregator
 python3 src/aggregator.py
 ```
 Скрипт автоматически очистит целевые таблицы и перезаполнит их.

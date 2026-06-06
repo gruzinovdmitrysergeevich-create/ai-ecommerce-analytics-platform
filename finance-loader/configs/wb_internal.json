@@ -1,6 +1,6 @@
 {
   "source_type": "local",
-  "path": "/mnt/3E7ADD3C7ADCF19F/ai-projects/advertising-data/wb_internal/",
+  "path": "./advertising-data/wb_internal/",
   "database": "Реклама",
   "table_name": "internal_advertising",
   "hash_fields": ["Дата", "Номенклатура", "Название"],

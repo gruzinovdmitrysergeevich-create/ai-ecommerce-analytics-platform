@@ -42,7 +42,7 @@ analyst.py (оркестратор)
 ## Запуск
 
 ```bash
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/analytics
+cd ./analytics
 python3 analyst.py "вопрос"
 
 # Примеры
@@ -100,9 +100,9 @@ cd ~/my-ai-stack && docker compose up -d baserow
 curl http://100.64.243.115:11434/api/tags
 
 # Перезапустить загрузчики
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/universal-api-loader && python3 loader.py &
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/finance-loader && python3 src/finance_loader.py
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/aggregator && python3 src/aggregator.py
+cd ./universal-api-loader && python3 loader.py &
+cd ./finance-loader && python3 src/finance_loader.py
+cd ./aggregator && python3 src/aggregator.py
 ```
 
 ## Правила для Hermes

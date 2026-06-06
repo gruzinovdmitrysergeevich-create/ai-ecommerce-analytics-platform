@@ -17,7 +17,7 @@
 ## Запуск
 
 ```bash
-cd /mnt/3E7ADD3C7ADCF19F/ai-projects/aggregator
+cd ./aggregator
 python3 src/aggregator.py
 ```
 
