@@ -1,44 +1,50 @@
 # AI-Powered E-commerce Analytics Platform
 
-**Система сквозной аналитики для маркетплейсов Wildberries и Ozon с AI-ассистентом.**
+**Система сквозной аналитики для маркетплейсов Wildberries и Ozon.**
 
 ---
 
-## Архитектура
+## Как это работает
 
 ```
-WB API / Ozon API
-       │
-       ▼
-┌──────────────────────────────────────────────┐
-│              Универсальные загрузчики         │
-│  loaders/ — 9 загрузчиков сырых данных       │
-│  (wb_sales, wb_realization, wb_ads,          │
-│   ozon_finance_v2, ozon_postings, ...)       │
-└──────────────────┬───────────────────────────┘
+WB API / Ozon API / Excel / Google Sheets
+              │
+              ▼
+┌─────────────────────────────────────────┐
+│       universal-api-loader              │
+│  Универсальный загрузчик сырых данных   │
+│  configs/ — JSON-конфиги для каждого    │
+│  отчёта WB и Ozon                       │
+└──────────────────┬──────────────────────┘
                    │
+    ┌──────────────┼──────────────┐
+    ▼              ▼              ▼
+┌────────┐  ┌────────────┐  ┌──────────┐
+│finance-│  │  loaders/  │  │ raw data │
+│loader  │  │ 9 API-загр.│  │  (Excel) │
+└───┬────┘  └─────┬──────┘  └────┬─────┘
+    │             │              │
+    └──────────┬──┘──────────────┘
+               ▼
+┌─────────────────────────────────────────┐
+│              Baserow (PostgreSQL)        │
+│         Единое хранилище данных          │
+└──────────────────┬──────────────────────┘
+                   │
+         ┌─────────┼─────────┐
+         ▼         ▼         ▼
+   ┌──────────┐ ┌──────┐ ┌──────────┐
+   │aggregator│ │Metab.│ │analytics │
+   │агрегация │ │ :3001│ │AI-аналит.│
+   └────┬─────┘ └──────┘ └────┬─────┘
+        │                     │
+        └──────────┬──────────┘
                    ▼
-┌──────────────────────────────────────────────┐
-│              Оркестратор + Baserow            │
-│  analytics/wb_orchestrator.py                │
-│  analytics/baserow_manager.py                │
-│         ↓ PostgreSQL (Baserow) ↓             │
-└──────────────────┬───────────────────────────┘
-                   │
-     ┌─────────────┼─────────────┐
-     ▼             ▼             ▼
-┌──────────┐ ┌──────────┐ ┌──────────┐
-│Проекты   │ │ Дашборд  │ │ Metabase │
-│          │ │          │ │          │
-│aggregator│ │Streamlit │ │ :3001    │
-│finance-  │ │ :8501    │ │ (BI)     │
-│loader    │ │          │ │          │
-│analytics │ │  4 стр:  │ └──────────┘
-│          │ │  Обзор   │
-└──────────┘ │  Аналит. │
-             │  Архитект│
-             │  Дебаг   │
-             └──────────┘
+┌─────────────────────────────────────────┐
+│            Streamlit Dashboard           │
+│               localhost:8501             │
+│   Обзор │ Аналитика │ Архитектура │ Дебаг │
+└─────────────────────────────────────────┘
 ```
 
 ---
@@ -46,47 +52,50 @@ WB API / Ozon API
 ## Структура
 
 ```
-├── loaders/                       # API-загрузчики (9 шт.)
-│   ├── wb_sales_loader.py         # WB — продажи
-│   ├── wb_realization_loader.py   # WB — реализация
-│   ├── wb_ads_loader.py           # WB — реклама
-│   ├── ozon_finance_v2_loader.py  # Ozon — финансы v2
-│   ├── ozon_postings_loader.py    # Ozon — отправления
-│   ├── ozon_realization_loader.py # Ozon — реализация
-│   ├── ozon_transactions_detail_loader.py  # Ozon — детал. транзакции
-│   ├── ozon_vendor_loader.py      # Ozon — внешний трафик
-│   └── ozon_ads_loader.py         # Ozon — реклама
+├── universal-api-loader/         # Универсальный загрузчик API
+│   ├── src/universal_loader.py   # Ядро (54KB)
+│   ├── src/validate_config.py    # Валидатор JSON-конфигов
+│   ├── configs/ozon/             # 5 JSON-конфигов отчётов Ozon
+│   └── configs/wildberries/      # 4 JSON-конфига отчётов WB
 │
-├── analytics/                     # Ядро
-│   ├── wb_base_loader.py          # Базовый класс для загрузчиков
-│   ├── wb_orchestrator.py         # Оркестратор пайплайна
-│   ├── baserow_manager.py         # Клиент Baserow API
-│   └── runner.py                  # Запускатор
+├── finance-loader/               # Финансовый загрузчик
+│   ├── src/finance_loader.py     # Ядро
+│   └── configs/                  # 8 JSON-конфигов (банк, Ozon, WB, трафик)
 │
-├── projects/                      # Независимые проекты
-│   ├── aggregator/                # Агрегация данных
-│   │   ├── src/aggregator.py
-│   │   └── configs/aggregation_rules.json
-│   ├── finance-loader/            # Финансовый загрузчик
-│   │   ├── src/finance_loader.py
-│   │   └── configs/ (7 JSON-конфигов)
-│   └── analytics/                 # AI-аналитика
-│       ├── analyst.py
-│       └── src/ (sandbox, metric_engine, data_discovery...)
+├── aggregator/                   # Агрегатор данных
+│   ├── src/aggregator.py
+│   └── configs/aggregation_rules.json
 │
-├── dashboard/                     # Streamlit UI
-│   ├── app.py                     # Главный дашборд
+├── analytics/                    # AI-аналитика
+│   ├── analyst.py                # Оркестратор анализа
+│   ├── src/                      # sandbox, metric_engine, data_discovery...
+│   ├── wb_base_loader.py         # Базовый класс загрузчиков
+│   └── wb_orchestrator.py        # Оркестратор WB-пайплайна
+│
+├── loaders/                      # 9 загрузчиков WB/Ozon API
+│   ├── wb_sales_loader.py
+│   ├── wb_realization_loader.py
+│   ├── wb_ads_loader.py
+│   ├── ozon_finance_v2_loader.py
+│   ├── ozon_postings_loader.py
+│   ├── ozon_realization_loader.py
+│   ├── ozon_transactions_detail_loader.py
+│   ├── ozon_vendor_loader.py
+│   └── ozon_ads_loader.py
+│
+├── dashboard/                    # Streamlit UI
+│   ├── app.py
 │   └── modules/
-│       ├── analytics_sandbox.py   # AI-аналитика (DeepSeek + Plotly)
-│       ├── debug_agent.py         # AI-дебаг проекта
-│       ├── finance_provider.py    # Финансовая сводка
-│       ├── loader_runner.py       # Управление загрузчиками
-│       ├── docker_manager.py      # Docker-контейнеры
-│       ├── ollama_manager.py      # Ollama-станция
-│       └── status_engine.py       # Статусы сервисов
+│       ├── analytics_sandbox.py  # AI-аналитика (DeepSeek + Plotly)
+│       ├── debug_agent.py        # AI-дебаг проекта
+│       ├── finance_provider.py   # Финансовая сводка
+│       ├── loader_runner.py      # Управление загрузчиками
+│       ├── docker_manager.py     # Docker-контейнеры
+│       ├── ollama_manager.py     # Ollama-станция
+│       └── status_engine.py      # Статусы сервисов
 │
-├── docker-compose.yml             # Инфраструктура
-└── docs/screenshots/              # Скриншоты
+├── docker-compose.yml            # Docker-инфраструктура
+└── docs/screenshots/             # Скриншоты
 ```
 
 ---
@@ -99,8 +108,9 @@ WB API / Ozon API
 
 ## Скриншоты
 
-![Обзор системы](docs/screenshots/overview.png)
-![AI-аналитика](docs/screenshots/analytics.png)
+![Обзор](docs/screenshots/overview.png)
+![Аналитика](docs/screenshots/analytics.png)
+![Архитектура](docs/screenshots/architecture.png)
 ![Дебаг](docs/screenshots/debug.png)
 
 ---
