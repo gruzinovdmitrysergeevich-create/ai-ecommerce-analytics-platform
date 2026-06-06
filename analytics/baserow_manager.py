@@ -198,4 +198,12 @@ class BaserowManager:
             field_url = f"{BASEROW_URL}/api/database/fields/table/{table_id}/"
             field_payload = {
                 "name": field["name"],
-                "
+                "type": field.get("type", "text")
+            }
+            try:
+                resp = requests.post(field_url, headers=headers, json=field_payload, timeout=10)
+                resp.raise_for_status()
+            except Exception as e:
+                print(f"Не удалось создать поле {field['name']}: {e}")
+        
+        return table_id

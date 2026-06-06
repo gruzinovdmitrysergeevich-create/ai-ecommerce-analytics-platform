@@ -1,8 +1,8 @@
 # ========== Техническое (модель НЕ знает) ==========
 baserow:
   url: http://localhost:8000
-  email: gruzinov.dmitry.sergeevich@gmail.com
-  password: 1I9N59!_09&
+  email: your@email.com
+  password: your_password
 
 models:
   # Код генерит облачная (DeepSeek v4 Pro) — лучший кодогенератор
