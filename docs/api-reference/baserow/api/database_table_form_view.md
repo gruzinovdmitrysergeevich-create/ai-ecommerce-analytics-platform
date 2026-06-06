@@ -1,0 +1,98 @@
+# Database table form view
+
+## GET /api/database/views/form/{slug}/edit-row/{row_token}/
+
+****  
+*operationId: `get_edit_row_database_table_form_view`*
+
+**Параметры:**
+
+- `row_token` (path) — The signed edit token that identifies the row to edit.
+- `slug` (path) — The slug of the form view.
+
+---
+
+## PATCH /api/database/views/form/{slug}/edit-row/{row_token}/
+
+****  
+*operationId: `update_edit_row_database_table_form_view`*
+
+**Параметры:**
+
+- `row_token` (path) — The signed edit token that identifies the row to edit.
+- `slug` (path) — The slug of the form view.
+
+**Тело запроса:**
+
+- `field_1`: *string* — This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. 
+- `field_2`: *string* — This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. 
+- `field_3`: *string* — This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. 
+- `field_4`: *string* — This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. 
+- `field_5`: *string* — This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. 
+- `field_6`: *integer* — This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. 
+- `field_7`: *boolean* — This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. 
+- `field_8`: *string* — This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. 
+- `field_13`: *number* — This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
+- `field_14`: *array* — This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
+- `field_15`: *array* — This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
+- `field_16`: *integer* — Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+- `field_17`: *array* — This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+- `field_18`: *string* — This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. 
+- `field_23`: *array* — This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
+- `field_26`: *string* — This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
+- `field_28`: *string* — This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
+
+---
+
+## GET /api/database/views/form/{slug}/submit/
+
+****  
+*operationId: `get_meta_database_table_form_view`*
+
+**Параметры:**
+
+- `slug` (path) — The slug related to the form form.
+
+---
+
+## POST /api/database/views/form/{slug}/submit/
+
+****  
+*operationId: `submit_database_table_form_view`*
+
+**Параметры:**
+
+- `slug` (path) — The slug related to the form.
+
+**Тело запроса:**
+
+- `field_1`: *string* — This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. 
+- `field_2`: *string* — This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. 
+- `field_3`: *string* — This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. 
+- `field_4`: *string* — This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. 
+- `field_5`: *string* — This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. 
+- `field_6`: *integer* — This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. 
+- `field_7`: *boolean* — This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. 
+- `field_8`: *string* — This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. 
+- `field_13`: *number* — This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
+- `field_14`: *array* — This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
+- `field_15`: *array* — This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
+- `field_16`: *integer* — Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+- `field_17`: *array* — This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+- `field_18`: *string* — This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. 
+- `field_23`: *array* — This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
+- `field_26`: *string* — This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
+- `field_28`: *string* — This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
+
+---
+
+## POST /api/database/views/form/{slug}/upload-file/
+
+****  
+*operationId: `upload_file_form_view`*
+
+**Параметры:**
+
+- `slug` (path) — Submits files only if the view with the provided slughas a public file field.
+
+---
