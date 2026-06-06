@@ -111,6 +111,6 @@ WB API / Ozon API                Google Sheets / Excel
 
 ## Автор
 
-**Дмитрий Грузинов** — GEHLEN LANER
+**Дмитрий Грузинов** — Gehlen LANER
 
 📧 gruzinov.dmitry.sergeevich@gmail.com
