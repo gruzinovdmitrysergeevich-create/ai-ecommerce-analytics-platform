@@ -98,14 +98,19 @@
 ## 📂 Структура репозитория
 
 ```
-├── src/
-│   ├── etl/               # Загрузчики данных (WB, Ozon, VK, финансы)
-│   ├── dashboard/         # Streamlit UI (app.py + модули)
-│   └── analytics/         # AI-движок аналитики
-├── docker-compose.yml     # Инфраструктура (Baserow, Metabase, Qdrant, n8n)
 ├── docs/
 │   ├── ARCHITECTURE.md    # Детальная архитектура
 │   └── screenshots/       # Скриншоты интерфейса
+│       ├── overview.png   # Обзор системы
+│       ├── analytics.png  # AI-аналитика
+│       └── debug.png      # Дебаг-агент
+├── src/
+│   ├── dashboard/         # Streamlit UI
+│   │   ├── app.py         # Главный дашборд
+│   │   └── modules/       # Модули: аналитика, дебаг, загрузчики
+│   ├── etl/               # ETL-загрузчики (WB API, Ozon API)
+│   └── analytics/         # AI-движок аналитики
+├── docker-compose.yml     # Инфраструктура
 └── README.md
 ```
 
