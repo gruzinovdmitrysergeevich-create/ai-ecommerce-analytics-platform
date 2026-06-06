@@ -37,7 +37,15 @@ import sys as _sys
 _analytics_path = os.path.expanduser("~/my-ai-stack/analytics")
 if _analytics_path not in _sys.path:
     _sys.path.insert(0, _analytics_path)
-from analyst import run_question as run_analytics_question
+# Добавляем src/ для импорта модулей аналитики
+_src_path = os.path.join(_analytics_path, "src")
+if _src_path not in _sys.path:
+    _sys.path.insert(0, _src_path)
+try:
+    from analyst import run_question as run_analytics_question
+except ImportError:
+    # Fallback: если analyst.py не найден — используем старый sandbox
+    from modules.analytics_sandbox import run_analytics_question
 from modules.debug_agent import debug_script_with_model as debug_script
 # get_overview_status imported above (line 18-22)
 from arch_block import ARCH_BLOCK
@@ -46,7 +54,7 @@ from arch_block import ARCH_BLOCK
 # УТИЛИТЫ
 # ═══════════════════════════════════════════════════
 BASEROW_URL = "http://localhost:8000"
-BASEROW_TOKEN = "your_baserow_token"
+BASEROW_TOKEN = "5iIBoYZ579mQMRYnJpx12nFKESISiB9w"
 METABASE_URL = "http://localhost:3001"
 QDRANT_URL = "http://localhost:6333/dashboard"
 WB_PRODUCT_URL = "https://www.wildberries.ru/catalog/239789919/detail.aspx?targetUrl=GP"
