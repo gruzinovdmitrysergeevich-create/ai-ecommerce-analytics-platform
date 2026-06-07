@@ -109,6 +109,12 @@ WB API / Ozon API                Google Sheets / Excel
 
 ---
 
+## Видео-демонстрация
+
+🎥 [Смотреть видео-обзор AI-дашборда](https://drive.google.com/file/d/17VMbhFhlffBoCmFCjg1X3vZiXSdrBZhO/view)
+
+---
+
 ## Автор
 
 **Дмитрий Грузинов** — Gehlen LANER
