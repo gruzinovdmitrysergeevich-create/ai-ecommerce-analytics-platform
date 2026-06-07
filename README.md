@@ -111,7 +111,7 @@ WB API / Ozon API                Google Sheets / Excel
 
 ## Видео-демонстрация
 
-🎥 [Смотреть видео-обзор AI-дашборда](https://drive.google.com/file/d/17VMbhFhlffBoCmFCjg1X3vZiXSdrBZhO/view)
+🎥 [Смотреть на Google Диске](https://drive.google.com/file/d/17VMbhFhlffBoCmFCjg1X3vZiXSdrBZhO/view) | [Скачать с GitHub](https://github.com/gruzinovdmitrysergeevich-create/ai-ecommerce-analytics-platform/releases/download/v1.0.0/demo-ui-dashboard.mov)
 
 ---
 
